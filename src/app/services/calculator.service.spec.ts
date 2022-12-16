@@ -1,4 +1,6 @@
+import { TestBed } from "@angular/core/testing";
 import { CalculatorService } from "./calculator.service";
+import { LoggerService } from "./logger.service";
 
 fdescribe("CalculatorService", () => {
   let calculatorService: CalculatorService;
@@ -6,7 +8,18 @@ fdescribe("CalculatorService", () => {
 
   beforeEach(() => {
     loggerServiceSpy = jasmine.createSpyObj("LoggerService", ["print"]);
-    calculatorService = new CalculatorService(loggerServiceSpy);
+    // calculatorService = new CalculatorService(loggerServiceSpy);
+    TestBed.configureTestingModule({
+      providers: [
+        CalculatorService,
+        {
+          provide: LoggerService,
+          useValue: loggerServiceSpy,
+        },
+      ],
+    });
+
+    calculatorService = TestBed.get(CalculatorService);
   });
 
   // Testing add function on calculator service
