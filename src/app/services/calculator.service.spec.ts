@@ -1,34 +1,34 @@
 import { CalculatorService } from "./calculator.service";
 
 fdescribe("CalculatorService", () => {
+  let calculatorService: CalculatorService;
+  let loggerServiceSpy: any;
+
+  beforeEach(() => {
+    loggerServiceSpy = jasmine.createSpyObj("LoggerService", ["print"]);
+    calculatorService = new CalculatorService(loggerServiceSpy);
+  });
+
   // Testing add function on calculator service
   it("should add two numbers", () => {
-    const loggerService = jasmine.createSpyObj("LoggerService", ["print"]);
-    // sypying on print method of logger service
-
-    const calculator = new CalculatorService(loggerService);
-    const result = calculator.add(2, 2);
+    const result = calculatorService.add(2, 2);
 
     expect(result).toBe(4, "unexpected add function resutl");
 
     // check print method is being called
-    expect(loggerService.print).toHaveBeenCalled();
+    expect(loggerServiceSpy.print).toHaveBeenCalled();
     // check print method is being called only once
-    expect(loggerService.print).toHaveBeenCalledTimes(1);
+    expect(loggerServiceSpy.print).toHaveBeenCalledTimes(1);
   });
 
   // Testing substract function on calculator service
   it("should substrat two numbers", () => {
-    const loggerService = jasmine.createSpyObj("LoggerService", ["print"]);
-    // sypying on print method of logger service
-
-    const calculator = new CalculatorService(loggerService);
-    const result = calculator.substract(2, 2);
+    const result = calculatorService.substract(2, 2);
 
     expect(result).toBe(0, "unexpected substraction result");
     // check print method is being called
-    expect(loggerService.print).toHaveBeenCalled();
+    expect(loggerServiceSpy.print).toHaveBeenCalled();
     // check print method is being called only once
-    expect(loggerService.print).toHaveBeenCalledTimes(1);
+    expect(loggerServiceSpy.print).toHaveBeenCalledTimes(1);
   });
 });
