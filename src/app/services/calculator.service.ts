@@ -5,13 +5,15 @@ import { LoggerService } from "./logger.service";
   providedIn: "root",
 })
 export class CalculatorService {
-  constructor(logger: LoggerService) {}
+  constructor(private logger: LoggerService) {}
 
   add(a: number, b: number): number {
+    this.logger.print("add function has been called!");
     return a + b;
   }
 
   substract(a: number, b: number): number {
+    this.logger.print("add function has been called!");
     return a - b;
   }
 }
