@@ -2,13 +2,27 @@ import { TestBed } from "@angular/core/testing";
 import { CalculatorService } from "./calculator.service";
 import { LoggerService } from "./logger.service";
 
-fdescribe("CalculatorService", () => {
+// Angular uses Jasmine testing framework & Karma test runner 
+
+// Unit suite
+// In Jasmine, Describe method is used to create a unit suite 
+
+describe("CalculatorService", () => {
   let calculatorService: CalculatorService;
   let loggerServiceSpy: any;
 
+  // beforeEach => for intial setup
+  // Before Each block is run before each specification / test 
+
   beforeEach(() => {
+
+    // createSpyObj('service', ['method'])
+    // To create spying object (LoggerService) with a method (print) 
     loggerServiceSpy = jasmine.createSpyObj("LoggerService", ["print"]);
-    // calculatorService = new CalculatorService(loggerServiceSpy);
+
+
+    //Angular uses testBed instead of creating actual instance of dependecies like below
+    // calculatorService = new CalculatorService(loggerServiceSpy); // don't use this
     TestBed.configureTestingModule({
       providers: [
         CalculatorService,
@@ -19,7 +33,7 @@ fdescribe("CalculatorService", () => {
       ],
     });
 
-    calculatorService = TestBed.get(CalculatorService);
+    calculatorService = TestBed.inject(CalculatorService);
   });
 
   // Testing add function on calculator service
